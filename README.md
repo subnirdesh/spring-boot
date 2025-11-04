@@ -34,7 +34,8 @@ Beans are the building blocks of a Spring application.
 
 A POJO which has annotations such as @Component, @Service, @Repository, or @Controller is bean.
 A POJO becomes a Bean when Spring detects it and takes control over creating and injecting it.
-<img width="1024" height="1536" alt="image" src="https://github.com/user-attachments/assets/7fdbb412-6d2f-4335-8cf2-82ab8e041aad" />
+
+<img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/7fdbb412-6d2f-4335-8cf2-82ab8e041aad"  />
 
 
 
