@@ -64,6 +64,20 @@ Hidden dependencies (not visible in constructor)
 
 Violates best practices of dependency injection
 
+
+Some extra's that pair with @Autowired or enhances the function of autowired
+
+| Parameter / Related Annotation | Purpose                                          | Effect                                           |
+| ------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| `required` (true/false)        | Whether injection is mandatory                   | true → exception if no bean; false → inject null |
+| `@Qualifier`                   | Specify which bean to inject when multiple exist | Injects bean by name                             |
+| `@Lazy`                        | Delay bean creation until first use              | Avoids early initialization                      |
+| `@Primary`                     | Marks one bean as default among multiple         | Used automatically without qualifier             |
+
+
+
+---
+
 ### Constructor Injection(Best Practice)
 
 Constructor Injection is a type of Dependency Injection (DI) where Spring provides (injects) the required dependencies of a class through its constructor at the time of object creation.
