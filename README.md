@@ -1,4 +1,13 @@
 # spring-boot
+
+@Component vs @Service vs @Repository vs @Controller
+@Autowired vs Constructor Injection (when to use which)
+@Configuration and @Bean (manual bean creation)
+@ComponentScan (how Spring finds beans)
+@SpringBootApplication (what it really does)
+
+
+
 ## 1. Maven 
 
 - Maven is a build automation and project management tool for Java.
@@ -104,6 +113,173 @@ In simple words: ApplicationContext = The smart box that holds and manages all y
         ↓
 11. ApplicationContext closed
 ```
+### 2.5 Stereotype Annotations 
+---
+
+#### @Component 
+@Component is the generic stereotype annotation. It tells Spring:
+
+"Hey, this is a bean. Create it, manage it, and make it available for dependency injection."
+
+
+**Hierarchy**                                                    
+```
+@Component (parent)
+    ↓
+├── @Service (business logic layer)
+├── @Repository (data layer)
+└── @Controller (web layer)
+```
+
+**Visual: Layered Architecture**
+
+```
+┌─────────────────────────────┐
+│  @Controller/@RestController │  ← Handles web requests
+│     (Web/Presentation Layer) │
+└──────────────┬──────────────┘
+               ↓
+┌──────────────────────────────┐
+│         @Service              │  ← Business logic
+│      (Service Layer)          │
+└──────────────┬───────────────┘
+               ↓
+┌──────────────────────────────┐
+│        @Repository            │  ← Database access
+│       (Data Layer)            │
+└──────────────────────────────┘
+               ↓
+           Database
+```
+
+**When to Use @Component**
+ @Component  is usally used when your class doesn't fit into these categories:
+
+❌ Not business logic (not @Service)
+❌ Not data access (not @Repository)
+❌ Not web/API layer (not @Controller)
+✅ General utility, helper, or infrastructure class
+
+
+#### 2. @Service 
+@Service is a specialization of @Component for the business logic layer.
+It serves as core business logic of our application. It performs operations, applies business rules  and coordinates between different components.
+
+**When  to  use @Service**
+
+✅ Contains business logic
+
+✅ Orchestrates multiple operations
+
+✅ Applies business rules
+
+✅ Transforms data
+
+✅ Coordinates between repositories/other services
+
+✅ Business calculations
+
+✅ Workflow coordination
+
+✅ Data transformation
+
+✅ Validation logic
+
+✅ Transaction management
+
+✅ Calling multiple repositories
+
+**Service Layer Pattern:**
+```
+Controller → Service → Repository → Database
+
+Controller: Receives request
+Service: Processes business logic
+Repository: Accesses database
+```
+
+**Why @Service Instead of @Component?**
+
+- **Semantic Clarity**: Tells developers "this is business logic"
+- **AOP (Aspect-Oriented Programming)**: Can apply aspects to all @Service beans
+- **Transaction Management**: Easy to apply @Transactional
+- **Testing**: Can mock all services easily
+- **Future Spring Features**: Spring may add service-specific features
+
+#### 3. @Repository
+@Repository annotation is specialized form of @Component which is resposible for data access layer. It handles CRUD operations, queries and database interaction.
+
+**When to Use @Repository**
+Use @Repository when your class:
+
+✅ Accesses database
+✅ Performs CRUD operations
+✅ Executes queries
+✅ Handles data persistence
+✅ Interacts with JPA/Hibernate
+
+```
+@Repository automatically converts database-specific exceptions to Spring's DataAccessException hierarchy.
+```
+
+**Repository Pattern Benefits**
+
+**Separation of Concerns**: Data access logic separated from business logic
+**Testability**: Easy to mock for unit tests
+**Maintainability**: All queries in one place
+**Flexibility**: Easy to switch databases
+
+#### 4. @Controller and @RestController
+
+@Controller is specialized form of @Component for web/presentation layer 
+A controller handles HTTP requests and returns views (HTML pages) or data.
+
+| Annotation            | Purpose                             | Returns                                                        |
+| --------------------- | ----------------------------------- | -------------------------------------------------------------- |
+| **`@Controller`**     | Used to build **web pages (views)** | Returns an **HTML page (via templates like Thymeleaf or JSP)** |
+| **`@RestController`** | Used to build **REST APIs**         | Returns **data directly (JSON or XML)** instead of a view      |
+
+```
+// @Controller
+@Controller = @Component
+
+// @RestController
+@RestController = @Controller + @ResponseBody
+
+// Meaning:
+@RestController
+public class ApiController {
+    // Every method automatically has @ResponseBody
+    // Responses are serialized to JSON
+}
+```
+
+**When to use @Controller**
+
+✅ Building traditional web applications
+✅ Server-side rendering (Thymeleaf, JSP, Freemarker)
+✅ Returning HTML views
+
+**When to use @RestController:**
+
+✅ Building REST APIs
+✅ Returning JSON/XML data
+✅ Mobile app backends
+✅ Microservices
+✅ Single Page Applications (React, Angular, Vue)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                                                 
