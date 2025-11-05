@@ -38,6 +38,88 @@ Dependency Injection (DI) means that instead of an object creating the things it
 
 Dependency Injection can mostly be done by @Autowired or using Constructor Injection.
 
+### @Autowired 
+@Autowired is a Spring annotation that tells the container to automatically inject a matching bean into the marked field, constructor, or setter method.
+```
+@Service
+public class orderService{
+
+  @Autowired
+  private PaymentService paymentService;
+
+  public void placeOrder(){
+    paymentService.pay();
+  }  
+```
+
+✅ Simple, short
+
+❌ Drawbacks:
+
+Hard to test (you can’t pass mocks easily)
+
+You can’t make fields final
+
+Hidden dependencies (not visible in constructor)
+
+Violates best practices of dependency injection
+
+### Constructor Injection(Best Practice)
+
+Constructor Injection is a type of Dependency Injection (DI) where Spring provides (injects) the required dependencies of a class through its constructor at the time of object creation.
+
+``` 
+@Service
+public class OrderService {
+
+    private final PaymentService paymentService;
+
+    @Autowired // optional if there’s only one constructor
+    public OrderService(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
+
+    public void placeOrder() {
+        paymentService.pay();
+    }
+}
+```
+
+✅ Advantages:
+
+Makes dependencies explicit
+
+Easy to test (you can pass mock dependencies)
+
+Allows use of final (ensures immutability)
+
+Supports dependency validation at startup (if missing, app won’t start)
+
+Encouraged by Spring and modern frameworks
+
+```
+Note : If multiple constructors exist, mark the one to use with @Autowired.
+```
+
+
+
+| Aspect              | `@Autowired` on Field  | Constructor Injection              |
+| ------------------- | ---------------------- | ---------------------------------- |
+| **Code Simplicity** | Shorter                | Slightly more boilerplate          |
+| **Visibility**      | Hidden dependencies    | Dependencies are explicit          |
+| **Testing**         | Hard to mock           | Easy to mock (pass custom objects) |
+| **Immutability**    | No (can’t use `final`) | Yes (supports `final`)             |
+| **Recommended?**    | ❌ No                   | ✅ Yes (best practice)              |
+
+
+```
+Note:  Hidden Dependencies occurs as relies on external objects (dependencies) without clearly stating them, typically because the dependencies are injected directly into fields using @Autowired instead of through the constructor. Using Constructor Injection fixes  this because dependencies are explicit
+```
+
+
+
+
+
 ### 2.2 Beans 
 ---
 A Bean is basically an object that is managed by the Spring IoC container.
@@ -116,7 +198,7 @@ In simple words: ApplicationContext = The smart box that holds and manages all y
 ### 2.5 Stereotype Annotations 
 ---
 
-#### @Component 
+### @Component 
 @Component is the generic stereotype annotation. It tells Spring:
 
 "Hey, this is a bean. Create it, manage it, and make it available for dependency injection."
@@ -161,7 +243,7 @@ In simple words: ApplicationContext = The smart box that holds and manages all y
 ✅ General utility, helper, or infrastructure class
 
 
-#### 2. @Service 
+### 2. @Service 
 @Service is a specialization of @Component for the business logic layer.
 It serves as core business logic of our application. It performs operations, applies business rules  and coordinates between different components.
 
@@ -206,7 +288,7 @@ Repository: Accesses database
 - **Testing**: Can mock all services easily
 - **Future Spring Features**: Spring may add service-specific features
 
-#### 3. @Repository
+### 3. @Repository
 @Repository annotation is specialized form of @Component which is resposible for data access layer. It handles CRUD operations, queries and database interaction.
 
 **When to Use @Repository**
@@ -236,7 +318,7 @@ Use @Repository when your class:
 
 **Flexibility**: Easy to switch databases
 
-#### 4. @Controller and @RestController
+### 4. @Controller and @RestController
 
 @Controller is specialized form of @Component for web/presentation layer 
 A controller handles HTTP requests and returns views (HTML pages) or data.
@@ -261,6 +343,7 @@ public class ApiController {
 }
 ```
 
+
 **When to use @Controller**
 
 ✅ Building traditional web applications
@@ -280,6 +363,9 @@ public class ApiController {
 ✅ Microservices
 
 ✅ Single Page Applications (React, Angular, Vue)
+
+
+
 
 
 
