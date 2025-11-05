@@ -213,9 +213,13 @@ Repository: Accesses database
 Use @Repository when your class:
 
 ✅ Accesses database
+
 ✅ Performs CRUD operations
+
 ✅ Executes queries
+
 ✅ Handles data persistence
+
 ✅ Interacts with JPA/Hibernate
 
 ```
@@ -225,8 +229,11 @@ Use @Repository when your class:
 **Repository Pattern Benefits**
 
 **Separation of Concerns**: Data access logic separated from business logic
+
 **Testability**: Easy to mock for unit tests
+
 **Maintainability**: All queries in one place
+
 **Flexibility**: Easy to switch databases
 
 #### 4. @Controller and @RestController
@@ -257,15 +264,21 @@ public class ApiController {
 **When to use @Controller**
 
 ✅ Building traditional web applications
+
 ✅ Server-side rendering (Thymeleaf, JSP, Freemarker)
+
 ✅ Returning HTML views
 
 **When to use @RestController:**
 
 ✅ Building REST APIs
+
 ✅ Returning JSON/XML data
+
 ✅ Mobile app backends
+
 ✅ Microservices
+
 ✅ Single Page Applications (React, Angular, Vue)
 
 
