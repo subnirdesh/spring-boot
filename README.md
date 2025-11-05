@@ -51,17 +51,16 @@ public class orderService{
   }  
 ```
 
-✅ Simple, short
 
-❌ Drawbacks:
+**❌ Drawbacks**
 
-Hard to test (you can’t pass mocks easily)
+- Hard to test (you can’t pass mocks easily)
 
-You can’t make fields final
+- You can’t make fields final
 
-Hidden dependencies (not visible in constructor)
+- Hidden dependencies (not visible in constructor)
 
-Violates best practices of dependency injection
+- Violates best practices of dependency injection
 
 
 Some extra's that pair with @Autowired or enhances the function of autowired
@@ -98,17 +97,17 @@ public class OrderService {
 }
 ```
 
-✅ Advantages:
+**✅ Advantages**
 
-Makes dependencies explicit
+- Makes dependencies explicit
 
-Easy to test (you can pass mock dependencies)
+- Easy to test (you can pass mock dependencies)
 
-Allows use of final (ensures immutability)
+- Allows use of final (ensures immutability)
 
-Supports dependency validation at startup (if missing, app won’t start)
+- Supports dependency validation at startup (if missing, app won’t start)
 
-Encouraged by Spring and modern frameworks
+- Encouraged by Spring and modern frameworks
 
 ```
 Note : If multiple constructors exist, mark the one to use with @Autowired.
@@ -133,16 +132,39 @@ Note:  Hidden Dependencies occurs as relies on external objects (dependencies) w
 
 
 
-### 2.2 Beans 
+### 2.2 Beans and @Configurations
 ---
 A Bean is basically an object that is managed by the Spring IoC container.
 Spring creates the object, manages its lifecycle, and can inject it into other objects as needed.
 Beans are the building blocks of a Spring application.
 
+
+```
+@Bean is a Spring annotation used on a method inside a @Configuration class (or sometimes in other places) to define a Spring-managed bean.
+```
+
 A POJO which has annotations such as @Component, @Service, @Repository, or @Controller is bean.
 A POJO becomes a Bean when Spring detects it and takes control over creating and injecting it.
 
 <img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/7fdbb412-6d2f-4335-8cf2-82ab8e041aad"  />
+
+##### @Configurations Annotatations 
+
+@Configuration is a Spring annotation used on a class to indicate that it contains bean definitions.
+Spring will scan the class and treat it as a source of bean definitions for the IoC container.
+
+**Key Points**
+
+- Marks a class as a configuration class, similar to an XML configuration file.
+
+- Spring will create beans from the methods annotated with @Bean inside this class.
+
+- Typically used for manual bean registration when you don’t use @Component scanning
+  
+
+
+
+
 
 
 ### 2.3 Spring IoC Container 
@@ -376,6 +398,7 @@ public class ApiController {
 ✅ Microservices
 
 ✅ Single Page Applications (React, Angular, Vue)
+
 
 
 
