@@ -7,7 +7,6 @@
 @SpringBootApplication (what it really does)
 
 
-
 ## 1. Maven 
 
 - Maven is a build automation and project management tool for Java.
