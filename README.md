@@ -399,6 +399,70 @@ public class ApiController {
 
 ✅ Single Page Applications (React, Angular, Vue)
 
+### 2.6 Componenent Scanning 
+Component scanning is a mechanism that allows Spring Boot to automatically discover and register beans (objects managed by Spring) in your application context without requiring explicit configuration.
+
+- @ComponentScan Annotation
+
+When we use @SpringBootApplication on your main class, it includes three annotations:
+
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan (this is what handles component scanning)
+
+**How it works**
+
+Spring Boot scans the package where our main class is located and all its sub-packages, looking for classes annotated with stereotype annotations:
+
+@Component - generic component
+@Service - service layer
+@Repository - data access layer
+@Controller - web controller
+@RestController - REST API controller
+@Configuration - configuration class
+
+When Spring finds these annotated classes, it automatically creates instances of them and registers them in the application context, making them available for dependency injection.
+
+## 3. @SpringBootApplication
+--
+@SpringBootApplication is the main annotation that bootstraps a Spring Boot application. It's a meta-annotation (an annotation that combines other annotations) placed on your main class to start everything.
+
+**What Is It Combined Of?**
+
+It combines 3 core annotations:
+- 1. @SpringBootConfiguration
+
+Contains @Configuration inside it
+Marks the class as a configuration class
+Allows you to define @Bean methods
+Identifies this as the primary Spring Boot configuration
+
+- 2. @EnableAutoConfiguration
+
+Enables Spring Boot's auto-configuration mechanism
+Automatically configures beans based on classpath dependencies
+Examples of auto-configuration:
+
+Detects spring-boot-starter-web → configures Tomcat, Spring MVC
+Detects spring-boot-starter-data-jpa → configures DataSource, EntityManager
+Detects spring-security → configures basic security
+
+
+- 3. @ComponentScan
+
+Scans the package where this class is located + all sub-packages
+Finds classes with: @Component, @Service, @Repository, @Controller, @RestController
+Automatically registers them as Spring beans
+
+
+
+
+
+
+
+
+
+
 
 
 
