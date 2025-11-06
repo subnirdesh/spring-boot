@@ -148,6 +148,7 @@ A POJO becomes a Bean when Spring detects it and takes control over creating and
 
 <img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/7fdbb412-6d2f-4335-8cf2-82ab8e041aad"  />
 
+
 ##### @Configurations Annotatations 
 
 @Configuration is a Spring annotation used on a class to indicate that it contains bean definitions.
@@ -163,6 +164,11 @@ Spring will scan the class and treat it as a source of bean definitions for the 
   
 
 
+```
+@Qualifier Annotation
+The @Qualifier annotation is used to resolve ambiguity when multiple beans of the same type are available in the application context and you want to tell Spring which one to inject.
+
+```
 
 
 
@@ -430,28 +436,39 @@ When Spring finds these annotated classes, it automatically creates instances of
 **What Is It Combined Of?**
 
 It combines 3 core annotations:
+
 - 1. @SpringBootConfiguration
 
 Contains @Configuration inside it
+
 Marks the class as a configuration class
+
 Allows you to define @Bean methods
+
 Identifies this as the primary Spring Boot configuration
+
 
 - 2. @EnableAutoConfiguration
 
 Enables Spring Boot's auto-configuration mechanism
+
 Automatically configures beans based on classpath dependencies
+
 Examples of auto-configuration:
 
 Detects spring-boot-starter-web → configures Tomcat, Spring MVC
+
 Detects spring-boot-starter-data-jpa → configures DataSource, EntityManager
+
 Detects spring-security → configures basic security
 
 
 - 3. @ComponentScan
 
 Scans the package where this class is located + all sub-packages
+
 Finds classes with: @Component, @Service, @Repository, @Controller, @RestController
+
 Automatically registers them as Spring beans
 
 
