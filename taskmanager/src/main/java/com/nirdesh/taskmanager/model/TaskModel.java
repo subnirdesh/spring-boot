@@ -8,7 +8,7 @@ public class TaskModel {
     private int id;
     private String name;
     private LocalDate  createdAt;
-    private Local completeAt;
+    private LocalDate completeAt;
     private String status;
 
     public int getId() {
