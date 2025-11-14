@@ -152,9 +152,90 @@ public class Student {
 | `@Transient`                                              | Field will **not** be persisted in DB         | `@Transient private int tempValue;`                       |
 
 
+## Persistence and Persistence Context 
+
+Persistence in Java refers to the mechanism of storing and retrieving data permanently, so that it survives beyond the 
+application's lifecycle. When your Java application closes, persistent data remains stored (typically in databases) and can be retrieved when the application restarts.
+
+**What is Persistence Context in Java?**
+
+A Persistence Context is a set of entity instances managed by the EntityManager. Think of it as a first-level cache or a staging area where JPA tracks all entities and their state changes.
+Think of the persistence context as a special box (memory storage) created by the EntityManager to store and track your entity objects.
+
+```
+1. Reduces DB queries
+
+find() for the same ID is served from the first-level cache.
+
+2. Enables dirty checking
+
+Because the persistence context holds the original and modified values.
+
+3. Ensures identity
+
+Within a persistence context:
+
+em.find(User.class, 1L) == em.find(User.class, 1L)  // true
+
+The same object instance is returned.
+
+This ensures consistency.
+
+```
 
 
-  
+### Key Characteristics:
+
+- Acts as cache between java object and database
+    - Caching : keeping entity objects in the persistence context instead of hitting DB repeatedly.
+- Tracks changes to entities automatically
+    - Ensures one Java object per ID while the EntityManager is active.
+- Ensures uniqueness - only one instance of an entity with a given ID exists in the context
+
+## Entity Manager 
+
+EntityManager is the primary JPA interface for interacting with the persistence context. It's your gateway to perform all database operations - creating, reading, updating, and deleting entities.
+Think of EntityManager as a manager that handles the lifecycle of your entities and their relationship with the database.
+
+In Spring Boot, you rarely create EntityManager manually. Spring manages it for you through:
+
+- Spring Data JPA (Repository pattern - most common)
+- @PersistenceContext injection (direct EntityManager usage)
+- EntityManagerFactory (manual creation - rare)
+
+### PersistenceContext Injection 
+
+```
+@Repository
+public class EmployeeRepositoryImpl {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+    
+    public Employee save(Employee employee) {
+        entityManager.persist(employee);
+        return employee;
+    }
+    
+    public Employee findById(Long id) {
+        return entityManager.find(Employee.class, id);
+    }
+    
+    public void update(Employee employee) {
+        entityManager.merge(employee);
+    }
+    
+    public void delete(Long id) {
+        Employee employee = entityManager.find(Employee.class, id);
+        if (employee != null) {
+            entityManager.remove(employee);
+        }
+    }
+}
+```
+
+
+
 
 
 
