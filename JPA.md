@@ -151,6 +151,12 @@ public class Student {
 | `@Column(name="student_name", nullable=false, length=50)` | Maps field to column with optional properties | `@Column(name="student_name", nullable=false, length=50)` |
 | `@Transient`                                              | Field will **not** be persisted in DB         | `@Transient private int tempValue;`                       |
 
+ 
+
+
+
+
+
 
 ## Persistence and Persistence Context 
 
@@ -233,6 +239,9 @@ public class EmployeeRepositoryImpl {
     }
 }
 ```
+
+
+
 
 
 
