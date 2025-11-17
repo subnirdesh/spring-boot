@@ -152,11 +152,28 @@ public class Student {
 | `@Transient`                                              | Field will **not** be persisted in DB         | `@Transient private int tempValue;`                       |
 
  
+### @Id
+- simply marks a field as the primary key of the entity.
+- @GeneratedValue tells Hibernate HOW to automatically generate IDs.
+    - | GenerationType     | Requires (DB Requirement)                      | How It Works                                                        | Description / Notes                                                |
+      |--------------------|------------------------------------------------|---------------------------------------------------------------------|--------------------------------------------------------------------|
+      | AUTO               | Nothing specific                               | Hibernate chooses the best strategy based on the database           | Safe default, behavior varies depending on DB dialect              |
+      | IDENTITY           | Auto-increment column                          | DB generates ID at INSERT; Hibernate retrieves it afterwards        | Best for MySQL; does NOT support batch inserts well                |
+      | SEQUENCE           | Database sequence (e.g., Postgres, Oracle)     | Hibernate calls NEXTVAL on sequence *before* insert                 | Best for Postgres/Oracle; supports batching                        |
+      | TABLE              | A table to store ID counters                   | Hibernate uses a table to simulate a sequence                       | Slow; rarely used in modern apps                                   |
+      | UUID               | None (Hibernate generates UUID)                | Hibernate generates random UUID (Java UUID class)                   | Good for microservices; no DB dependency                           |
+      | AUTO (with @SequenceGenerator) | Sequence recommended on DB         | Uses sequence generator if configured                               | You can override default sequence allocation                       |
 
-
-
-
-
+- @SequenceGenerator — Custom Sequence Settings
+  - @SequenceGenerator(name = "user_seq", sequenceName = "user_sequence", allocationSize = 1, initialValue = 100 )
+  -  | Paramter | What it does                                                                    |
+     |----------|---------------------------------------------------------------------------------|
+     | name    | A unique name inside the entity.                                                |
+     | sequenceName| Actual sequence name in the database.                                           |
+      | allocationSize | Performance optimization. like storing next ids to be used so no need to hit db |
+      | initialValue| First value of the sequence Hibernate will use.                                 |
+ 
+    
 
 ## Persistence and Persistence Context 
 
@@ -241,7 +258,52 @@ public class EmployeeRepositoryImpl {
 ```
 
 
+##  DDL-auto Specification  in Spring Boot
 
+Hibernate (the JPA provider) needs to know how it should handle your database schema when the application starts.
+
+Spring Boot does not know whether you want:
+- to create tables automatically
+- to update tables automatically
+- to validate existing tables
+- or to do nothing
+
+So you must tell Hibernate what to do with database structure using:
+
+| Value | Behavior | Data Loss | When to Use | What It Does | Pros | Cons |
+|-------|----------|-----------|-------------|--------------|------|------|
+| none | No schema management | No | Production | Hibernate does nothing with schema | Full control, predictable | Requires manual schema management |
+| validate | Schema validation only | No | Production | Validates entity mappings match database schema | Safe, catches mismatches early | Won't fix issues automatically |
+| update | Adds missing elements | No | Development | Adds new tables and columns only | Convenient during development | Can cause inconsistencies over time |
+| create | Drops and recreates | YES | Testing | Drops all tables on startup, creates fresh schema | Always clean state | Destroys all data on every restart |
+| create-drop | Creates/drops on start/stop | YES | Integration Tests | Creates schema on startup, drops on shutdown | Perfect test isolation | Destroys data on startup and shutdown |
+
+
+## Spring Data JPA
+Spring Data JPA is a part of the Spring Data project. It’s a framework that simplifies working with relational databases in Java applications using JPA (Java Persistence API).
+
+**Repository Hierarchy**
+```angular2html
+
+Repository (marker interface)
+            ↓
+CrudRepository (basic CRUD operations)
+            ↓
+PagingAndSortingRepository (pagination + sorting)
+            ↓
+JpaRepository (JPA specific + all above)
+```
+
+### JPA Repository 
+JpaRepository is an interface provided by Spring Data JPA that gives you ready-made methods to perform database operations without writing any SQL or implementation code.
+
+
+
+```angular2html
+public interface StudentRepository extends JpaRepository<Student, Long> {
+    // That's it! You get tons of methods for free
+}
+```
 
 
 
