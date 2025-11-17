@@ -1,13 +1,13 @@
-package com.nirdesh.hospitalmanagement;
+package com.nirdesh.studentmanagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HospitalmanagementApplication {
+public class studentmanagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HospitalmanagementApplication.class, args);
+		SpringApplication.run(studentmanagementApplication.class, args);
 	}
 
 }

@@ -11,8 +11,8 @@
 	<groupId>com.nirdesh</groupId>
 	<artifactId>hospitalmanagement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>hospitalmanagement</name>
-	<description>Simple Hospital Management to demonstrate JPA</description>
+	<name>studentmanagement</name>
+	<description>Simple Student  Management to demonstrate JPA</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -39,17 +39,32 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+
+        <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.42</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
