@@ -29,6 +29,10 @@ public class StudentService {
         return studentRepository.findById(id).orElse(null);
     }
 
+    public List<Student> findByFirstName(String firstName){
+        return studentRepository.findByFirstName(firstName);
+    }
+
     public Student updateStudent(Integer id,Student newStudent){
         Student student =  findById(id);
         student.setFirstName(newStudent.getFirstName());

@@ -26,6 +26,13 @@ public class StudentController {
         return studentService.findById(id);
     }
 
+    @GetMapping(path="/firstname/{firstName}")
+    public List<Student> getStudentbyFirstName(@PathVariable String firstName){
+        return studentService.findByFirstName(firstName);
+
+    }
+
+
     @PostMapping
     public Student createStudent(@RequestBody Student student){
         return studentService.createStudent(student);
