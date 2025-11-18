@@ -33,6 +33,15 @@ public class StudentService {
         return studentRepository.findByFirstName(firstName);
     }
 
+    public List<Student> findByFirstNameContaining(String firstName){
+        return studentRepository.findByFirstNameContaining(firstName);
+    }
+
+    public Student findByEmailAddress(String email){
+        return studentRepository.getStudentByEmailAddress(email);
+    }
+
+
     public Student updateStudent(Integer id,Student newStudent){
         Student student =  findById(id);
         student.setFirstName(newStudent.getFirstName());
@@ -45,7 +54,13 @@ public class StudentService {
 
     }
 
+    public int updateFirstNameById(Integer id, String firstName){
+        return studentRepository.updateFirstNameByID(id,firstName);
+    }
+
+
     public void deleteStudent(Integer id){
+
         studentRepository.deleteById(id);
     }
 }

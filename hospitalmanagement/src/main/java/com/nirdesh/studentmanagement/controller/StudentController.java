@@ -5,6 +5,7 @@ import com.nirdesh.studentmanagement.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/students")
@@ -32,18 +33,30 @@ public class StudentController {
 
     }
 
+    @GetMapping(path="/email/{email}")
+    public Student getStudentbyEmailAddress(@PathVariable String email){
+        return studentService.findByEmailAddress(email);
+
+    }
+
 
     @PostMapping
     public Student createStudent(@RequestBody Student student){
         return studentService.createStudent(student);
     }
 
-    @PutMapping(path = "/id/{id}")
+    @PutMapping("/id/{id}")
     public Student updateStudent(@PathVariable Integer id, @RequestBody Student student){
         return studentService.updateStudent(id,student);
     }
 
-    @DeleteMapping(path="id/{id}")
+    @PatchMapping("/firstName/{id}")
+    public int updateFirstNameById(@PathVariable Integer id, @RequestBody Map<String,String> updates){
+        String firstName=updates.get("firstName");
+        return studentService.updateFirstNameById(id,firstName);
+    }
+
+    @DeleteMapping("id/{id}")
     public void deleteStudent(@PathVariable Integer id){
          studentService.deleteStudent(id);
     }
