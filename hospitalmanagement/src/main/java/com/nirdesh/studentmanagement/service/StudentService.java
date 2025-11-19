@@ -6,61 +6,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class StudentService {
 
-    private final StudentRepository studentRepository;
+public interface StudentService {
 
 
-    public StudentService(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
-
-    public Student createStudent( Student student){
-        return studentRepository.save(student);
-    }
-
-    public List<Student> findAll(){
-        return studentRepository.findAll();
-
-    }
-
-    public Student findById(Integer id){
-        return studentRepository.findById(id).orElse(null);
-    }
-
-    public List<Student> findByFirstName(String firstName){
-        return studentRepository.findByFirstName(firstName);
-    }
-
-    public List<Student> findByFirstNameContaining(String firstName){
-        return studentRepository.findByFirstNameContaining(firstName);
-    }
-
-    public Student findByEmailAddress(String email){
-        return studentRepository.getStudentByEmailAddress(email);
-    }
-
-
-    public Student updateStudent(Integer id,Student newStudent){
-        Student student =  findById(id);
-        student.setFirstName(newStudent.getFirstName());
-        student.setLastName(newStudent.getLastName());
-        student.setEmail_address(newStudent.getEmail_address());
-        student.setGuardianName(newStudent.getGuardianName());
-        student.setGuardianPhone(newStudent.getGuardianPhone());
-
-        return studentRepository.save(student);
-
-    }
-
-    public int updateFirstNameById(Integer id, String firstName){
-        return studentRepository.updateFirstNameByID(id,firstName);
-    }
-
-
-    public void deleteStudent(Integer id){
-
-        studentRepository.deleteById(id);
-    }
+    Student createStudent( Student student);
+    List<Student> findAll();
+    Student findById(Integer id);
+    List<Student> findByFirstName(String firstName);
+    List<Student> findByFirstNameContaining(String firstName);
+    Student findByEmailAddress(String email);
+    Student updateStudent(Integer id,Student newStudent);
+    int updateFirstNameById(Integer id, String firstName);
+    void deleteStudent(Integer id);
 }

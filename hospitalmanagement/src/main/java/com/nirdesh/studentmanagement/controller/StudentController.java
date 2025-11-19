@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "/students")
+@RequestMapping(path = "/api/student")
 public class StudentController {
     private final StudentService studentService;
 
@@ -38,7 +38,6 @@ public class StudentController {
         return studentService.findByEmailAddress(email);
 
     }
-
 
     @PostMapping
     public Student createStudent(@RequestBody Student student){
