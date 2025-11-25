@@ -1,35 +1,23 @@
 package com.nirdesh.coursemanager.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
-
+public class Module {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long studentId;
-    @Column(nullable = false)
-    private String firstName;
-    @Column(nullable = false)
-    private String lastName;
+    private Long moduleId;
     @Column(nullable = false,unique = true)
-    private String rollNo;
+    private String moduleName;
     @Column(nullable = false,unique = true)
-    private String email;
-    @Column(nullable = false)
-    private String guardianName;
-    @Column(nullable = false)
-    private String guardianPhone;
-    @CreationTimestamp
-    private String createdAt;
+    private String moduleCode;
+    private String description;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id",referencedColumnName = "courseId",nullable = false)
     private Course course;

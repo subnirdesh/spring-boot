@@ -14,16 +14,7 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
-    List<Student> findByFirstName(String firstName);
-    List<Student> findByFirstNameContaining(String firstName);
 
-
-    @Query("select s from Student s where s.email_address=:email")
-     Student getStudentByEmailAddress(@Param("email") String emailAddress);
-
-   @Modifying
-    @Query(" update Student s  set s.firstName=:firstName where s.studentId=:id")
-    int updateFirstNameByID(@Param("id") int id, @Param("firstName") String firstName );
 
 
 }

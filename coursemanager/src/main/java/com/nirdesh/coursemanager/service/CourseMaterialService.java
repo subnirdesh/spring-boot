@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface CourseMaterialService {
 
-    CourseMaterial createCourseMaterial(Integer courseId,String url);
-    List<CourseMaterial> getAllCourseMaterial();
+
 }

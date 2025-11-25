@@ -11,20 +11,4 @@ import java.util.List;
 @Service
 public class CourseServiceImpl implements CourseService {
 
-    private final CourseRepository courseRepository;
-
-    public CourseServiceImpl(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
-    }
-
-
-    @Override
-    public Course createCourse(Course course) {
-        return courseRepository.save(course);
-    }
-
-    @Override
-    public List<Course> getAllStudents() {
-        return courseRepository.findAll();
-    }
 }
