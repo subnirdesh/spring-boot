@@ -1,10 +1,9 @@
 package com.nirdesh.coursemanager.entity;
 
+import com.nirdesh.coursemanager.entity.base.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.Min;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,14 +11,12 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
-@Builder
-public class Course {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long courseId;
+
+public class Course extends BaseEntity {
+
     @Column(nullable = false,unique = true)
     private String courseName;
     private String description;

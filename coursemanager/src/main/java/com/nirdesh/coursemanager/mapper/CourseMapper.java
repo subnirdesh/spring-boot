@@ -2,35 +2,52 @@ package com.nirdesh.coursemanager.mapper;
 
 import com.nirdesh.coursemanager.dto.course.CourseResponse;
 import com.nirdesh.coursemanager.dto.course.CreateCourseRequest;
+import com.nirdesh.coursemanager.dto.course.UpdateCourseRequest;
 import com.nirdesh.coursemanager.entity.Course;
-import org.apache.catalina.User;
-import org.springframework.stereotype.Component;
+import jakarta.validation.constraints.Null;
+import lombok.Getter;
+import org.mapstruct.*;
 
-@Component
-public class CourseMapper {
-
-    public CourseResponse toResponse(Course course){
-        if(course==null) return null;
+import java.util.List;
 
 
-        return CourseResponse.builder()
-                .courseId(course.getCourseId())
-                .courseName((course.getCourseName()))
-                .credit(course.getCredit()).
-                build();
+@Mapper(componentModel = "spring")
+public interface CourseMapper {
 
-    }
+    /**
+     * Converting Course Entity to CourseResponseDTO
+     */
+    CourseResponse toResponse(Course course);
 
-    public Course toEntity(CreateCourseRequest request){
-        if(request==null) return null;
+    /**
+     * Converting CreateCourseRequest DTO to Course Entity
+     */
+    @Mapping(target = "id",ignore=true)
+    @Mapping(target = "createdAt",ignore = true)
+    @Mapping(target="updatedAt",ignore=true)
+    @Mapping(target="status",ignore = true)
+    Course toEntity(CreateCourseRequest request);
 
-       return Course.builder()
-               .courseName(request.courseName())
-               .description(request.description())
-               .credit((request.credit()))
-               .build();
+    /**
+     * Updates existing Course entity with UpdateUserRequest
+     */
 
-    }
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "id",ignore=true)
+    @Mapping(target = "createdAt",ignore = true)
+    @Mapping(target="updatedAt",ignore=true)
+    @Mapping(target="status",ignore = true)
+    void updateEntity(UpdateCourseRequest request,@MappingTarget Course course);
+
+    /**
+     * Convert a list of entity to list of DTO
+     */
+    List<CourseResponse> toResponseList(List<Course> courses);
+
+
+
+
+
 
 
 

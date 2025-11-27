@@ -7,9 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@Builder
+
 public record CourseResponse(
-     Long courseId,
+     Long id,
      String courseName,
      Integer credit
 ){}

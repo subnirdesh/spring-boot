@@ -1,6 +1,13 @@
 package com.nirdesh.coursemanager.dto.course;
 
-public class UpdateCourseRequest {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
-    private String courseNamw
-}
+import java.util.Optional;
+
+public record UpdateCourseRequest(
+        String courseName,
+        String description,
+        Integer credit
+
+){}

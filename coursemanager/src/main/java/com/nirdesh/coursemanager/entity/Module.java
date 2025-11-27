@@ -1,27 +1,22 @@
 package com.nirdesh.coursemanager.entity;
 
+import com.nirdesh.coursemanager.entity.base.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
-@Builder
-public class Module {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long moduleId;
+public class Module extends BaseEntity {
+
     @Column(nullable = false,unique = true)
     private String moduleName;
     @Column(nullable = false,unique = true)
     private String moduleCode;
     private String description;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id",referencedColumnName = "courseId",nullable = false)
+    @JoinColumn(name = "course_id",referencedColumnName = "id",nullable = false)
     private Course course;
 
 }
