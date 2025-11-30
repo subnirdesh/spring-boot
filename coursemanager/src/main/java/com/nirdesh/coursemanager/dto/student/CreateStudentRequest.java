@@ -1,0 +1,26 @@
+package com.nirdesh.coursemanager.dto.student;
+
+import jakarta.validation.MessageInterpolator;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public record CreateStudentRequest (
+        @NotBlank(message = "First Name is required.")
+        String firstName,
+        @NotBlank(message = "Last Name is required.")
+        String lastName,
+        @NotBlank(message = "Roll No is required")
+        String rollNo,
+        @Email
+        @NotBlank(message = "Email is required. ")
+        String email,
+        @NotBlank(message = "Guardian Name is required. ")
+        String guardianName,
+        @NotBlank(message = "Guardian Phone is required. ")
+        String guardianPhone,
+        @NotBlank(message = "Course Id is required.")
+        Long courseId
+
+)
+{
+}
