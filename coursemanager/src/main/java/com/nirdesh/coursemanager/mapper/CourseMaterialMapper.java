@@ -16,12 +16,11 @@ public interface CourseMaterialMapper {
     CourseMaterialResponse toResponse(CourseMaterial courseMaterial);
 
 
-
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt",ignore = true)
     @Mapping(target = "updatedAt",ignore = true)
     @Mapping(target="status",ignore = true)
-    Course toEntity(CreateCourseMaterialRequest request);
+    CourseMaterial toEntity(CreateCourseMaterialRequest request);
 
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -29,7 +28,7 @@ public interface CourseMaterialMapper {
     @Mapping(target = "createdAt",ignore = true)
     @Mapping(target = "updatedAt",ignore = true)
     @Mapping(target="status",ignore = true)
-    CourseMaterialResponse updateEntity(UpdateCourseRequest request, @MappingTarget CourseMaterial courseMaterial);
+    void updateEntity(UpdateCourseRequest request, @MappingTarget CourseMaterial courseMaterial);
 
 
     List<CourseMaterial> toResponseList(List<CourseMaterial> courses );

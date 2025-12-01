@@ -14,9 +14,11 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-
+@AllArgsConstructor
 public class Course extends BaseEntity {
 
+    @Column(nullable = false,unique = true)
+    private String courseCode;
     @Column(nullable = false,unique = true)
     private String courseName;
     private String description;
@@ -26,8 +28,7 @@ public class Course extends BaseEntity {
     private List<Module> modules=new ArrayList<>();
     @OneToMany(mappedBy = "course",cascade = CascadeType.ALL,fetch=FetchType.LAZY)
     private List<Student> students=new ArrayList<>();
-    @ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
-    private Set<Teacher> teachers = new HashSet<>();
+
 
 
 

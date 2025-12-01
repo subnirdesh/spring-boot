@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 public record CourseResponse(
      Long id,
+     String courseCode,
      String courseName,
      Integer credit
 ){}

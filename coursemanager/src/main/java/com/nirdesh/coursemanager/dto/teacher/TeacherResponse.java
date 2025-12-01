@@ -1,4 +1,13 @@
 package com.nirdesh.coursemanager.dto.teacher;
 
-public class TeacherResponse {
+import java.util.List;
+
+public record  TeacherResponse (
+        Long id,
+        String firstName,
+        String lastName,
+        String email,
+        String phone,
+        List<Long> moduleId
+){
 }

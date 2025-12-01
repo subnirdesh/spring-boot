@@ -1,11 +1,9 @@
 package com.nirdesh.coursemanager.mapper;
 
-import com.nirdesh.coursemanager.dto.course.CreateCourseRequest;
-import com.nirdesh.coursemanager.dto.course.UpdateCourseRequest;
+import com.nirdesh.coursemanager.entity.Module;
 import com.nirdesh.coursemanager.dto.module.CreateModuleRequest;
 import com.nirdesh.coursemanager.dto.module.ModuleResponse;
 import com.nirdesh.coursemanager.dto.module.UpdateModuleRequest;
-import com.nirdesh.coursemanager.entity.Course;
 import org.mapstruct.*;
 
 import java.util.List;

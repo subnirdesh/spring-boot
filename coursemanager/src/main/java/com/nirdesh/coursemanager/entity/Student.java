@@ -11,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 
 public class Student extends BaseEntity {
 

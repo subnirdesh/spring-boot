@@ -9,13 +9,11 @@ import com.nirdesh.coursemanager.dto.student.StudentResponse;
 import com.nirdesh.coursemanager.dto.student.UpdateStudentRequest;
 import com.nirdesh.coursemanager.entity.Module;
 import com.nirdesh.coursemanager.entity.Student;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 import java.util.List;
 
+@Mapper(componentModel = "spring")
 public interface StudentMapper {
 
     /**
@@ -40,7 +38,7 @@ public interface StudentMapper {
     @Mapping(target = "createdAt",ignore = true)
     @Mapping(target="updatedAt",ignore=true)
     @Mapping(target="status",ignore = true)
-    StudentResponse updateEntity(UpdateStudentRequest request, @MappingTarget Student student);
+    void updateEntity(UpdateStudentRequest request, @MappingTarget Student student);
 
 
     /**
