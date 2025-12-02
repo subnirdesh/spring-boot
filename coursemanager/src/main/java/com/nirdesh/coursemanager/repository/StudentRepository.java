@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, Integer> {
+public interface StudentRepository extends JpaRepository<Student, Long> {
 
 
 

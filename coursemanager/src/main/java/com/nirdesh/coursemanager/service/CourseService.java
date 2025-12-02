@@ -12,6 +12,6 @@ public interface CourseService {
 CourseResponse createCourse(CreateCourseRequest request);
 CourseResponse updateCourse(Long id, UpdateCourseRequest request);
 List<CourseResponse> getAllCourses();
-CourseResponse getCourse();
+CourseResponse getCourse(Long id);
 
 }
