@@ -37,3 +37,8 @@ spring-boot/
 Test/
 .idea/
 .DS_Store
+taskmanager/
+spring-boot/
+Test/
+.idea/
+.DS_Store
