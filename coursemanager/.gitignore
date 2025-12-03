@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+hospitalmanagement/
+taskmanager/
+spring-boot/
+Test/
+.idea/
+.DS_Store
