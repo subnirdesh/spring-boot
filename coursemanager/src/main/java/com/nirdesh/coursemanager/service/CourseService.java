@@ -10,7 +10,7 @@ import java.util.List;
 public interface CourseService {
 
 CourseResponse createCourse(CreateCourseRequest request);
-CourseResponse updateCourse(Long id, UpdateCourseRequest request);
+CourseResponse updateCourse(String courseCode, UpdateCourseRequest request);
 List<CourseResponse> getAllCourses();
 CourseResponse getCourse(Long id);
 

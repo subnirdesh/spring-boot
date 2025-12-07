@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 
 public class CourseMaterial extends BaseEntity {
 
+
     @Column(nullable = false)
     private String url;
     @OneToOne(fetch = FetchType.LAZY)

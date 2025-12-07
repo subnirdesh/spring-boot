@@ -1,6 +1,6 @@
 package com.nirdesh.coursemanager.dto.coursematerial;
 
-public record UpdateCourseMaterialResponse(
+public record UpdateCourseMaterialRequest(
         String url,
         Long courseId
 ) { }

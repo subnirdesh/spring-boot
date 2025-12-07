@@ -3,6 +3,7 @@ package com.nirdesh.coursemanager.dto.student;
 import jakarta.validation.MessageInterpolator;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record CreateStudentRequest (
         @NotBlank(message = "First Name is required.")
@@ -18,7 +19,7 @@ public record CreateStudentRequest (
         String guardianName,
         @NotBlank(message = "Guardian Phone is required. ")
         String guardianPhone,
-        @NotBlank(message = "Course Id is required.")
+        @NotNull(message = "Course Id is required.")
         Long courseId
 
 )

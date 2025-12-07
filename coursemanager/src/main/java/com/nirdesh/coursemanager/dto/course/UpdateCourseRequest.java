@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.Optional;
 
 public record UpdateCourseRequest(
-        Long id,
+        String courseCode,
         String courseName,
         String description,
         Integer credit

@@ -18,23 +18,27 @@ public class GlobalExceptionHandler {
                     ex.getHttpStatus().value(),
                   ex.getMessage());
 
-
-
         return ResponseEntity.status(ex.getHttpStatus()).body(response);
 
         }
 
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponse<Object>> handleGlobalException(Exception ex){
+        ApiResponse<Object> response=ApiResponse.error(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "Something went wrong");
 
-    @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ApiResponse<Object>> handleBadRequest(BadRequestException ex){
-            ApiResponse<Object> response=ApiResponse.error(
-                    HttpStatus.NOT_FOUND.value(),
-                    ex.getMessage()
-            );
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-        }
+    }
+
+
+
+
+
+
+
 
 
 

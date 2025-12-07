@@ -1,9 +1,8 @@
 package com.nirdesh.coursemanager.mapper;
 
-import com.nirdesh.coursemanager.dto.course.UpdateCourseRequest;
 import com.nirdesh.coursemanager.dto.coursematerial.CourseMaterialResponse;
 import com.nirdesh.coursemanager.dto.coursematerial.CreateCourseMaterialRequest;
-import com.nirdesh.coursemanager.entity.Course;
+import com.nirdesh.coursemanager.dto.coursematerial.UpdateCourseMaterialRequest;
 import com.nirdesh.coursemanager.entity.CourseMaterial;
 import org.mapstruct.*;
 
@@ -28,10 +27,10 @@ public interface CourseMaterialMapper {
     @Mapping(target = "createdAt",ignore = true)
     @Mapping(target = "updatedAt",ignore = true)
     @Mapping(target="status",ignore = true)
-    void updateEntity(UpdateCourseRequest request, @MappingTarget CourseMaterial courseMaterial);
+    void updateEntity(UpdateCourseMaterialRequest request, @MappingTarget CourseMaterial courseMaterial);
 
 
-    List<CourseMaterial> toResponseList(List<CourseMaterial> courses );
+    List<CourseMaterialResponse> toResponseList(List<CourseMaterial> courseMaterials );
 
 
 
