@@ -23,6 +23,6 @@ public class Module extends BaseEntity {
     @JoinColumn(name = "course_id",referencedColumnName = "id",nullable = false)
     private Course course;
     @ManyToMany(mappedBy = "modules", fetch = FetchType.LAZY)
-    private Set<Teacher> teachers = new HashSet<>();
+    private Set<Teacher> teachers ;
 
 }

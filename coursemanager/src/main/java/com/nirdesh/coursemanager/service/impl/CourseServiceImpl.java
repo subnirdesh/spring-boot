@@ -4,13 +4,13 @@ import com.nirdesh.coursemanager.dto.course.CourseResponse;
 import com.nirdesh.coursemanager.dto.course.CreateCourseRequest;
 import com.nirdesh.coursemanager.dto.course.UpdateCourseRequest;
 import com.nirdesh.coursemanager.entity.Course;
-import com.nirdesh.coursemanager.exception.DuplicateResourceException;
-import com.nirdesh.coursemanager.exception.ResourceNotFoundException;
+import com.nirdesh.coursemanager.exception.ApiException;
 import com.nirdesh.coursemanager.mapper.CourseMapper;
 import com.nirdesh.coursemanager.repository.CourseRepository;
 import com.nirdesh.coursemanager.service.CourseService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +28,8 @@ public class CourseServiceImpl implements CourseService {
     public CourseResponse createCourse(CreateCourseRequest request) {
 
         if(courseRepository.existsByCourseCode(request.courseCode())){
-           throw new DuplicateResourceException("Course already exists with code :  "+request.courseCode());
+           throw new ApiException("Course already exists with code :  " + request.courseCode(),
+                                    HttpStatus.CONFLICT);
         }
 
         Course course=mapper.toEntity(request);
@@ -43,9 +44,10 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public CourseResponse updateCourse(String courseCode, UpdateCourseRequest request) {
 
-        Course existingCourse=courseRepository.findCourseByCourseCode(courseCode)
-                .orElseThrow(()-> new ResourceNotFoundException(
-                        "Course not Found with ID: "+ courseCode
+        Course existingCourse=courseRepository.findByCourseCode(courseCode)
+                .orElseThrow(()-> new ApiException(
+                        "Course not Found with code: "+ courseCode,
+                        HttpStatus.NOT_FOUND
                 ));
 
         mapper.updateEntity(request,existingCourse);
@@ -64,7 +66,9 @@ public class CourseServiceImpl implements CourseService {
     public CourseResponse getCourse(Long id) {
 
         Course course=courseRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Course not Found with ID: "+id));
+                .orElseThrow(() -> new ApiException("Course not Found with ID: "+id,
+                                                      HttpStatus.NOT_FOUND
+                                                    ));
 
         return mapper.toResponse(course);
     }

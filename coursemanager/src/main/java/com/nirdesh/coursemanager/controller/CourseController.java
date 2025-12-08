@@ -2,6 +2,7 @@ package com.nirdesh.coursemanager.controller;
 
 import com.nirdesh.coursemanager.dto.course.CourseResponse;
 import com.nirdesh.coursemanager.dto.course.CreateCourseRequest;
+import com.nirdesh.coursemanager.dto.course.UpdateCourseRequest;
 import com.nirdesh.coursemanager.dto.reponse.ApiResponse;
 import com.nirdesh.coursemanager.service.CourseService;
 import lombok.RequiredArgsConstructor;
@@ -59,16 +60,21 @@ public class CourseController {
         return ResponseEntity.ok(response);
     }
 
+    @PatchMapping("/{code}")
+    public ResponseEntity<ApiResponse<CourseResponse>> updateCourse(@PathVariable String code,@RequestBody UpdateCourseRequest request) {
+        CourseResponse course = courseService.updateCourse(code, request);
+
+        ApiResponse<CourseResponse> response = ApiResponse.success(
+                HttpStatus.OK.value(),
+                "Course updated successfully",
+                course
+        );
+
+        return ResponseEntity.ok(response);
+
+    }
+
+    }
 
 
 
-
-
-
-
-
-
-
-
-
-}

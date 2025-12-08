@@ -1,9 +1,10 @@
 package com.nirdesh.coursemanager.controller;
 
 
-import com.nirdesh.coursemanager.dto.course.UpdateCourseRequest;
+
 import com.nirdesh.coursemanager.dto.coursematerial.CourseMaterialResponse;
 import com.nirdesh.coursemanager.dto.coursematerial.CreateCourseMaterialRequest;
+import com.nirdesh.coursemanager.dto.coursematerial.UpdateCourseMaterialRequest;
 import com.nirdesh.coursemanager.dto.reponse.ApiResponse;
 import com.nirdesh.coursemanager.service.CourseMaterialService;
 import lombok.RequiredArgsConstructor;
@@ -55,13 +56,27 @@ public class CourseMaterialController {
 
         CourseMaterialResponse courseMaterial=courseMaterialService.createCourseMaterial(request);
 
-        ApiResponse<CourseMaterialResponse> repsonse= ApiResponse.success(
+        ApiResponse<CourseMaterialResponse> response= ApiResponse.success(
                 HttpStatus.CREATED.value(),
                 "Course Material created successfully",
                 courseMaterial
         );
 
-        return ResponseEntity
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("{/id}")
+    public ResponseEntity<ApiResponse<CourseMaterialResponse>> updateCourseMaterial(@PathVariable Long id, @RequestBody UpdateCourseMaterialRequest request){
+
+         CourseMaterialResponse courseMaterial= courseMaterialService.updateCourseMaterial(id,request);
+
+         ApiResponse<CourseMaterialResponse> response = ApiResponse.success(
+                 HttpStatus.OK.value(),
+                 "Course Material updated successfully",
+                 courseMaterial
+
+         );
+         return ResponseEntity.ok(response);
     }
 
 }

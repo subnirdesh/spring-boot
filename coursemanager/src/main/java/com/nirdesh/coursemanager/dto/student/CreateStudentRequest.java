@@ -6,12 +6,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record CreateStudentRequest (
+        @NotBlank(message = "Roll No is required")
+        String rollNo,
         @NotBlank(message = "First Name is required.")
         String firstName,
         @NotBlank(message = "Last Name is required.")
         String lastName,
-        @NotBlank(message = "Roll No is required")
-        String rollNo,
         @Email
         @NotBlank(message = "Email is required. ")
         String email,

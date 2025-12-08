@@ -4,25 +4,37 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
     private boolean success;
-    private int status;
+    private Integer status;
     private String message;
     private T data;
     private LocalDateTime timestamp;
 
-    // For success
+
+
+    // For success with data
     public static <T> ApiResponse<T> success(int status,String message, T data){
         return new ApiResponse<>(true,status,message,data,LocalDateTime.now());
     }
+
+    // For success without data
+    public static <T> ApiResponse<T> success(int status,String message){
+        return new ApiResponse<>(true,status,message,null,LocalDateTime.now());
+    }
+
+    //For success only with message
+    public static <T> ApiResponse<T> success(String message){
+        return new ApiResponse<>(true,null,message,null,LocalDateTime.now());
+    }
+
 
 
     //For error

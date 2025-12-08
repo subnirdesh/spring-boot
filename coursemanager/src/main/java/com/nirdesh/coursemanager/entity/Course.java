@@ -25,9 +25,9 @@ public class Course extends BaseEntity {
     @Column(nullable = false)
     private Integer credit;
     @OneToMany(mappedBy ="course",cascade= CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Module> modules=new ArrayList<>();
+    private List<Module> modules;
     @OneToMany(mappedBy = "course",cascade = CascadeType.ALL,fetch=FetchType.LAZY)
-    private List<Student> students=new ArrayList<>();
+    private List<Student> students;
 
 
 

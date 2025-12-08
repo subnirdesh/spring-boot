@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     // Handle Not Found errors
-    @ExceptionHandler(BaseException.class)
-    public ResponseEntity<ApiResponse<Object>> handleNotFound(ResourceNotFoundException ex){
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<ApiResponse<Object>> handleApiException(ApiException ex){
          ApiResponse<Object> response=ApiResponse.error(
                     ex.getHttpStatus().value(),
                   ex.getMessage());
@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse<Object>> handleGlobalException(Exception ex){
+    public ResponseEntity<ApiResponse<Object>> handleOtherException(Exception ex){
         ApiResponse<Object> response=ApiResponse.error(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "Something went wrong");

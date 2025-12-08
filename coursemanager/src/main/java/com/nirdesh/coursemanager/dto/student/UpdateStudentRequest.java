@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record UpdateStudentRequest(
 
+        String rollNo,
         String firstName,
         String lastName,
         String email,
