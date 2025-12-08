@@ -57,7 +57,7 @@ public class CourseController {
                 course
         );
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PatchMapping("/{code}")

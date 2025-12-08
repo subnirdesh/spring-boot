@@ -33,7 +33,7 @@ public class CourseMaterialServiceImpl implements CourseMaterialService {
             );
         }
 
-        if (courseRepository.existsById(request.courseId())) {
+        if (!courseRepository.existsById(request.courseId())) {
             throw new ApiException("Course not found with ID: " + request.courseId(),
                                     HttpStatus.NOT_FOUND);
         }

@@ -34,10 +34,11 @@ public interface ModuleMapper {
     @Mapping(target = "createdAt",ignore = true)
     @Mapping(target="updatedAt",ignore=true)
     @Mapping(target="status",ignore = true)
-    void updateEntity(UpdateModuleRequest request, @MappingTarget Module module);
+    void updateEntity(UpdateModuleRequest request,@MappingTarget Module module);
 
     /**
      * Convert a list of entity to list of DTO
      */
-    List<ModuleResponse> toReponseList(List<Module> modules);
+    List<ModuleResponse> toResponseList(List<Module> modules);
+
 }

@@ -62,7 +62,7 @@ public class CourseMaterialController {
                 courseMaterial
         );
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PatchMapping("{/id}")

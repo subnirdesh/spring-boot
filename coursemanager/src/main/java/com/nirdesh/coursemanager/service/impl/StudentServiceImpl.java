@@ -6,6 +6,7 @@ import com.nirdesh.coursemanager.dto.student.UpdateStudentRequest;
 import com.nirdesh.coursemanager.entity.Student;
 import com.nirdesh.coursemanager.exception.ApiException;
 import com.nirdesh.coursemanager.mapper.StudentMapper;
+import com.nirdesh.coursemanager.repository.CourseRepository;
 import com.nirdesh.coursemanager.repository.StudentRepository;
 import com.nirdesh.coursemanager.service.StudentService;
 import jakarta.transaction.Transactional;
@@ -20,7 +21,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentServiceImpl  implements StudentService {
     private final StudentRepository studentRepository;
+    private final CourseRepository courseRepository;
     private final StudentMapper mapper;
+
 
 
 
@@ -32,6 +35,13 @@ public class StudentServiceImpl  implements StudentService {
             throw new ApiException(
                     "Student with Roll No already exists: "+request.rollNo(),
                     HttpStatus.CONFLICT
+            );
+        }
+
+        if(!courseRepository.existsById(request.courseId())){
+            throw new ApiException(
+                    " Course not found with ID: "+request.courseId(),
+                    HttpStatus.NOT_FOUND
             );
         }
 
@@ -62,12 +72,19 @@ public class StudentServiceImpl  implements StudentService {
 
     @Override
     public StudentResponse getStudent(Long id) {
-        return null;
+        Student student=studentRepository.findById(id)
+                .orElseThrow(()-> new ApiException(
+                        "Student not found with ID: "+id,
+                        HttpStatus.NOT_FOUND
+                ));
+
+        return mapper.toResponse(student);
     }
+
 
     @Override
     public List<StudentResponse> getAllStudents() {
-        return List.of();
+        return mapper.toResponseList(studentRepository.findAll());
     }
 }
 
