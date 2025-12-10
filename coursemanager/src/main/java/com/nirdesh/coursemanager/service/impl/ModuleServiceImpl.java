@@ -21,7 +21,6 @@ public class ModuleServiceImpl implements ModuleService {
     private final ModuleRepository moduleRepository;
     private final CourseRepository courseRepository;
     private final ModuleMapper mapper;
-    private final ModuleService moduleService;
 
 
     @Override

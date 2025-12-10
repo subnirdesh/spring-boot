@@ -16,31 +16,37 @@ public class ApiResponse<T> {
     private Integer status;
     private String message;
     private T data;
+    private Object errors;
     private LocalDateTime timestamp;
-
 
 
     // For success with data
     public static <T> ApiResponse<T> success(int status,String message, T data){
-        return new ApiResponse<>(true,status,message,data,LocalDateTime.now());
+        return new ApiResponse<>(true,status,message,data,null,LocalDateTime.now());
     }
 
     // For success without data
     public static <T> ApiResponse<T> success(int status,String message){
-        return new ApiResponse<>(true,status,message,null,LocalDateTime.now());
+        return new ApiResponse<>(true,status,message,null,null,LocalDateTime.now());
     }
 
     //For success only with message
     public static <T> ApiResponse<T> success(String message){
-        return new ApiResponse<>(true,null,message,null,LocalDateTime.now());
+        return new ApiResponse<>(true,null,message,null,null,LocalDateTime.now());
     }
 
 
 
     //For error
     public static <T> ApiResponse<T> error(int status,String message){
-        return new ApiResponse<>(false,status,message,null,LocalDateTime.now());
+        return new ApiResponse<>(false,status,message,null,null,LocalDateTime.now());
     }
+
+    public static <T> ApiResponse<T> error(int status,String message, Object errors){
+        return new ApiResponse<>(false,status,message,null,errors,LocalDateTime.now());
+    }
+
+
 
 
 

@@ -1,8 +1,10 @@
 package com.nirdesh.coursemanager.dto.student;
 
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.MessageInterpolator;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 public record CreateStudentRequest (

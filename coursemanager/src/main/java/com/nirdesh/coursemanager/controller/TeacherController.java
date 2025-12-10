@@ -6,9 +6,11 @@ import com.nirdesh.coursemanager.dto.teacher.CreateTeacherRequest;
 import com.nirdesh.coursemanager.dto.teacher.TeacherResponse;
 import com.nirdesh.coursemanager.dto.teacher.UpdateTeacherRequest;
 import com.nirdesh.coursemanager.service.TeacherService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/teacher")
 @RequiredArgsConstructor
+@Validated
 public class TeacherController {
     private final TeacherService teacherService;
 
@@ -51,7 +54,7 @@ public class TeacherController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<TeacherResponse>> createTeacher(@RequestBody CreateTeacherRequest request){
+    public ResponseEntity<ApiResponse<TeacherResponse>> createTeacher(@Valid  @RequestBody CreateTeacherRequest request){
 
         TeacherResponse teacher=teacherService.createTeacher(request);
 
@@ -65,7 +68,7 @@ public class TeacherController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ApiResponse<TeacherResponse>> updateTeacher(@PathVariable Long id, @RequestBody UpdateTeacherRequest request){
+    public ResponseEntity<ApiResponse<TeacherResponse>> updateTeacher(@PathVariable Long id, @Valid @RequestBody UpdateTeacherRequest request){
 
         TeacherResponse teacher=teacherService.updateTeacher(id, request);
 

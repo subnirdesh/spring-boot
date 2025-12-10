@@ -1,11 +1,13 @@
 package com.nirdesh.coursemanager.service;
 
 import com.nirdesh.coursemanager.dto.student.CreateStudentRequest;
+import com.nirdesh.coursemanager.dto.student.FilterStudentDTO;
 import com.nirdesh.coursemanager.dto.student.StudentResponse;
 import com.nirdesh.coursemanager.dto.student.UpdateStudentRequest;
 import com.nirdesh.coursemanager.entity.Student;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface StudentService {
@@ -14,7 +16,7 @@ public interface StudentService {
     StudentResponse updateStudent(String rollNo, UpdateStudentRequest request);
     StudentResponse getStudent(Long id);
     List<StudentResponse> getAllStudents();
-
+    Map<String,String> filterStudent(FilterStudentDTO students);
 
 
 

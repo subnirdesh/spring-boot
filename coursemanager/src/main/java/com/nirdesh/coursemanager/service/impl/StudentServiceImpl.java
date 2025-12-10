@@ -1,6 +1,7 @@
 package com.nirdesh.coursemanager.service.impl;
 
 import com.nirdesh.coursemanager.dto.student.CreateStudentRequest;
+import com.nirdesh.coursemanager.dto.student.FilterStudentDTO;
 import com.nirdesh.coursemanager.dto.student.StudentResponse;
 import com.nirdesh.coursemanager.dto.student.UpdateStudentRequest;
 import com.nirdesh.coursemanager.entity.Student;
@@ -14,7 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -46,7 +48,7 @@ public class StudentServiceImpl  implements StudentService {
         }
 
 
-        Student student=mapper.toEntity(request);
+        Student student=mapper.toEntity(request,courseRepository );
         studentRepository.save(student);
 
         return mapper.toResponse(student);
@@ -85,6 +87,24 @@ public class StudentServiceImpl  implements StudentService {
     @Override
     public List<StudentResponse> getAllStudents() {
         return mapper.toResponseList(studentRepository.findAll());
+    }
+
+    @Override
+    public Map<String, String> filterStudent(FilterStudentDTO students) {
+
+        List<Student> studentList= Arrays.stream(students.students())
+                .map(studentRepository::findByFirstName)
+                .flatMap(Optional::stream)
+                .toList();
+
+        Map<String,String>  studentCourseMap=studentList.stream()
+                .collect(Collectors.toMap(
+                        Student::getFirstName,
+                        student -> student.getCourse().getCourseName(),
+                        (existing,replacement)-> existing
+                ));
+
+        return studentCourseMap;
     }
 }
 

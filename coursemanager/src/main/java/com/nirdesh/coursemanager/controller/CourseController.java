@@ -5,9 +5,11 @@ import com.nirdesh.coursemanager.dto.course.CreateCourseRequest;
 import com.nirdesh.coursemanager.dto.course.UpdateCourseRequest;
 import com.nirdesh.coursemanager.dto.reponse.ApiResponse;
 import com.nirdesh.coursemanager.service.CourseService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/course")
 @RequiredArgsConstructor
+@Validated
 public class CourseController {
     private final CourseService courseService;
 
@@ -48,7 +51,7 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<CourseResponse>>  createCourse(@RequestBody CreateCourseRequest request){
+    public ResponseEntity<ApiResponse<CourseResponse>>  createCourse(@Valid @RequestBody CreateCourseRequest request){
         CourseResponse course=courseService.createCourse(request);
 
         ApiResponse<CourseResponse> response=ApiResponse.success(

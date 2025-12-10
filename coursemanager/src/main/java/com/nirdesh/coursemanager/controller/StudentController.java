@@ -2,21 +2,24 @@ package com.nirdesh.coursemanager.controller;
 
 import com.nirdesh.coursemanager.dto.reponse.ApiResponse;
 import com.nirdesh.coursemanager.dto.student.CreateStudentRequest;
+import com.nirdesh.coursemanager.dto.student.FilterStudentDTO;
 import com.nirdesh.coursemanager.dto.student.StudentResponse;
 import com.nirdesh.coursemanager.dto.student.UpdateStudentRequest;
-import com.nirdesh.coursemanager.entity.Student;
 import com.nirdesh.coursemanager.service.StudentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
+
 
 @RestController
 @RequestMapping(path = "/api/student")
 @RequiredArgsConstructor
+@Validated
 public class StudentController {
     private final StudentService studentService;
 
@@ -48,7 +51,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<StudentResponse>> createStudent(@RequestBody CreateStudentRequest request){
+    public ResponseEntity<ApiResponse<StudentResponse>> createStudent(@Valid @RequestBody CreateStudentRequest request){
         StudentResponse student=studentService.createStudent(request);
 
         ApiResponse<StudentResponse> response=ApiResponse.success(
@@ -61,8 +64,24 @@ public class StudentController {
     }
 
 
+    @PostMapping("/filter")
+    public ResponseEntity<ApiResponse<Map<String,String>>> filterStudent(@RequestBody FilterStudentDTO students){
+
+        Map<String ,String> result =studentService.filterStudent(students);
+
+        ApiResponse<Map<String,String>> response=ApiResponse.success(
+                HttpStatus.OK.value(),
+                "Result fetched successfully",
+                result
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+
+
     @PatchMapping("/{rollNo}")
-    public ResponseEntity<ApiResponse<StudentResponse>> updateStudent(@PathVariable String rollNo, @RequestBody UpdateStudentRequest request){
+    public ResponseEntity<ApiResponse<StudentResponse>> updateStudent(@PathVariable String rollNo, @Valid @RequestBody UpdateStudentRequest request){
 
         StudentResponse student=studentService.updateStudent(rollNo,request);
 
@@ -76,6 +95,11 @@ public class StudentController {
     }
 
 
-
+/**
+ * param list of string course - std name
+ * remove std assigned to course from the list
+ * return same list but remove if std matched with course
+ * sort result  take aesc/desc from the path iteslf or param
+ */
 
 }

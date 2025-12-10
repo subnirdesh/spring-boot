@@ -5,9 +5,11 @@ import com.nirdesh.coursemanager.dto.module.ModuleResponse;
 import com.nirdesh.coursemanager.dto.module.UpdateModuleRequest;
 import com.nirdesh.coursemanager.dto.reponse.ApiResponse;
 import com.nirdesh.coursemanager.service.ModuleService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/module")
 @RequiredArgsConstructor
+@Validated
 public class ModuleController {
     private final ModuleService moduleService;
 
@@ -50,7 +53,7 @@ public class ModuleController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<ModuleResponse>> createModule(@RequestBody CreateModuleRequest request){
+    public ResponseEntity<ApiResponse<ModuleResponse>> createModule(@Valid @RequestBody CreateModuleRequest request){
 
         ModuleResponse module =moduleService.createModule(request);
 
@@ -64,7 +67,7 @@ public class ModuleController {
     }
 
     @PatchMapping("/{moduleCode}")
-    public ResponseEntity<ApiResponse<ModuleResponse>> updateModule(@PathVariable String moduleCode, @RequestBody UpdateModuleRequest request){
+    public ResponseEntity<ApiResponse<ModuleResponse>> updateModule(@PathVariable String moduleCode, @Valid @RequestBody UpdateModuleRequest request){
 
         ModuleResponse module=moduleService.updateModule(moduleCode,request);
 

@@ -7,9 +7,11 @@ import com.nirdesh.coursemanager.dto.coursematerial.CreateCourseMaterialRequest;
 import com.nirdesh.coursemanager.dto.coursematerial.UpdateCourseMaterialRequest;
 import com.nirdesh.coursemanager.dto.reponse.ApiResponse;
 import com.nirdesh.coursemanager.service.CourseMaterialService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/course-material")
 @RequiredArgsConstructor
+@Validated
 public class CourseMaterialController {
     private final CourseMaterialService courseMaterialService;
 
@@ -52,7 +55,7 @@ public class CourseMaterialController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<CourseMaterialResponse>> createCourseMaterial(@RequestBody CreateCourseMaterialRequest request){
+    public ResponseEntity<ApiResponse<CourseMaterialResponse>> createCourseMaterial(@Valid @RequestBody CreateCourseMaterialRequest request){
 
         CourseMaterialResponse courseMaterial=courseMaterialService.createCourseMaterial(request);
 
@@ -65,8 +68,8 @@ public class CourseMaterialController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PatchMapping("{/id}")
-    public ResponseEntity<ApiResponse<CourseMaterialResponse>> updateCourseMaterial(@PathVariable Long id, @RequestBody UpdateCourseMaterialRequest request){
+    @PatchMapping("/{id}")
+    public ResponseEntity<ApiResponse<CourseMaterialResponse>> updateCourseMaterial(@PathVariable Long id, @Valid @RequestBody UpdateCourseMaterialRequest request){
 
          CourseMaterialResponse courseMaterial= courseMaterialService.updateCourseMaterial(id,request);
 
